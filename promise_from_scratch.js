@@ -65,7 +65,15 @@ class customPromise {
   }
 
   then(onFullfilled, onRejected) {
-
+    if (this.$state === 'FULFILLED') {
+      onFullfilled(this.$internalValue);
+    }
+    else if (this.$state === 'REJECTED') {
+      onRejected(this.$internalValue);
+    } 
+    else {
+      this.$chained.push({ onFulfilled, onRejected });
+    }
 
   }
 
