@@ -75,6 +75,8 @@ class customPromise {
 
   then(onFulfilled, onRejected) {
 
+    console.log('Then', onFulfilled, onRejected, new Error().stack);
+
     return new customPromise((resolve, reject) => {
 
       /*Catch any errors and reject to avoid crashing process */
@@ -113,7 +115,13 @@ class customPromise {
 
 }
 
+// run().catch(err => console.error(err.stack));
 
+// async function run() {
+//   const start = Date.now();
+//   await new customPromise(resolve => setTimeout(() => resolve(), 500));
+//   console.log('Elapsed time: ', Date.now() - start)
+// }
 
 
 
