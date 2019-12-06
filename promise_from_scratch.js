@@ -31,6 +31,13 @@ class customPromise {
         return;
       }
 
+      /*if 'res' is thenable, lock it in otherwise reject it */
+      const then = res != null ? res.then : null;
+      if (typeof then === 'function') {
+        /*at this point- resolved but still pending */
+        return then(resolve, reject);
+      }
+
       /*Set the state to reflect the recieved executor && set value */
       this.$state = 'FULFILLED';
       this.$internalValue = res;
@@ -38,6 +45,8 @@ class customPromise {
       for (const { onFulfilled } of this.$chained) {
         onFulfilled(res);
       }
+
+      return res
     };
 
     const reject = err => {
