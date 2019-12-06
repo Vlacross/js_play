@@ -35,8 +35,8 @@ class customPromise {
       this.$state = 'FULFILLED';
       this.$internalValue = res;
 
-      for (const { onFullfilled } of this.$chained) {
-        onFullfilled(res);
+      for (const { onFulfilled } of this.$chained) {
+        onFulfilled(res);
       }
     };
 
@@ -64,17 +64,41 @@ class customPromise {
 
   }
 
-  then(onFullfilled, onRejected) {
-    if (this.$state === 'FULFILLED') {
-      onFullfilled(this.$internalValue);
-    }
-    else if (this.$state === 'REJECTED') {
-      onRejected(this.$internalValue);
-    } 
-    else {
-      this.$chained.push({ onFulfilled, onRejected });
-    }
+  then(onFulfilled, onRejected) {
 
+    return new customPromise((resolve, reject) => {
+
+      /*Catch any errors and reject to avoid crashing process */
+
+      const _onFulfilled = res => {
+        try {
+          resolve(onFulfilled(res));
+        }
+        catch (err) {
+          reject(err);
+        }
+      };
+
+      const _onRejected = err => {
+        try {
+          reject(err);
+        }
+        catch (_err) {
+          reject(_err);
+        }
+      }
+      
+      if (this.$state === 'FULFILLED') {
+        _onFulfilled(this.$internalValue);
+      }
+      else if (this.$state === 'REJECTED') {
+        _onRejected(this.$internalValue);
+      } 
+      else {
+        this.$chained.push({ onFulfilled: _onFulfilled, onRejected: _onRejected });
+      }
+      
+    });
   }
 
 
