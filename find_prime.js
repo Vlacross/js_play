@@ -34,6 +34,21 @@ function Range(start, end, step=(start > end ? -1 : 1)) {
 };
 
 
+
+function superPrimer(arr) {
+  let superPrimes = [];
+  for (let i = 0; i < arr.length; i++) {
+    arr[arr[i]-1] !== undefined ?
+      superPrimes.push(arr[arr[i]-1]) :
+      null;
+      continue;
+  };
+
+  return superPrimes;
+};
+
+
+
 function findPrimes(end, start = arguments.length === 2 ? start : 1) {
 
   if(arguments.length === 0) {
