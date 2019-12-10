@@ -6,14 +6,17 @@ function Range(start, end, step=(start > end ? -1 : 1)) {
   (end - start) >= deNegate(step) :
    (end + start) >= deNegate(step);
 
-  if(start > end && step >= 0) {
-    return "Cannot create decremented range with positive step."
+  if (typeof start !== 'number' || typeof end !== 'number' || typeof step !== 'number') {
+    return "expecting numerical input values";
+  }
+  else if(start > end && step >= 0) {
+    return "Cannot create decremented range with positive step.";
   }
   else if (start < end && step <= 0) {
-    return "Cannot create incremental range with negative step."
+    return "Cannot create incremental range with negative step.";
   }
   else if (!withinRange(start, end, step)) {
-    return "The numbers just don't add up."
+    return "The numbers just don't add up.";
   }
   else  if (start === end) {
     return [start];
@@ -28,7 +31,7 @@ function Range(start, end, step=(start > end ? -1 : 1)) {
     rangeArr.push(i)
   };
   return rangeArr;
-}
+};
 
 /*
 Side tools
