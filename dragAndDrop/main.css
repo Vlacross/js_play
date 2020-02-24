@@ -12,5 +12,18 @@
 
 #draggableSpan {
   height: 100%;
+  width: 100px;
   background-color: aquamarine;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dropZone {
+  height: 100%;
+  width: 100px;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

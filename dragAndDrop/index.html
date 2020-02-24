@@ -8,10 +8,14 @@
   </head>
   <body>
     <div class="parent">
-      <span id='draggableSpan'>
+      <span id='draggableSpan'
+       draggable="true"
+       ondragstart="onDragStart(event);">
         draggable
       </span>
-      <span>dropzone</span>
+      <span id="dropZone">dropzone</span>
     </div>
+
+    <script src="dragScript.js"></script>
   </body>
 </html>
