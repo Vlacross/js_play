@@ -8,12 +8,28 @@
   </head>
   <body>
     <div class="parent">
-      <span id='draggableSpan'
-       draggable="true"
-       ondragstart="onDragStart(event);">
-        draggable
+      <div class="container"
+      ondragover="onDragOver(event)"
+      ondrop="onDrop(event)">
+        <span id="dropZone2" 
+          ondragover="onDragOver(event)"
+          ondrop="onDrop(event)">
+          dropzone2
+          <span id='draggableSpan'
+            draggable="true"
+            ondragstart="onDragStart(event);">
+            draggable
+          </span>
       </span>
-      <span id="dropZone">dropzone</span>
+      </div>
+      <div class="container">
+        <span id="dropZone" 
+          ondragover="onDragOver(event)"
+          ondrop="onDrop(event)">
+          dropzone
+        </span>
+      </div>
+      
     </div>
 
     <script src="dragScript.js"></script>
