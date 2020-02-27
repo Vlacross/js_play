@@ -82,6 +82,45 @@ class SafeObserver {
   }
 }
 
+/* Observable basic implementation */
+
+class Observable {
+  constructor(_subscribe) {
+    this._subscribe = _subscribe;
+  }
+
+  subscribe(observer) {
+    const safeObserver = new SafeObserver(observer);
+    safeObserver.unsub = this._subscribe(safeObserver);
+    return safeObserver.unsubscribe.bind(safeObserver); 
+  }
+}
+
+Observable.prototype.map = function(prjoect) {
+  return new Observable((observer) => {
+    const mapObserver = {
+      next: (x) => observer.next(project(x)),
+      error: (err) => observer.err(err),
+      complete: () => observer.complete()
+    };
+    return this.subscribe(mapObserver);
+  });
+}
+
+/* map operator - turned into the Observer class prototype above*/
+/*
+function map(source, project) {
+  return new Observable((observer) => {
+    const mapObserver = {
+      next: (x) => observer.next(project(x)),
+      error: (err) => observer.error(err),
+      complete: () => observer.complete()
+    };
+    return source.subscribe(mapObserver);
+  });
+}
+*/
+
 /* Observable */
 
 function myObservable(observer) {
