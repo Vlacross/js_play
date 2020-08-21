@@ -86,6 +86,41 @@ function findPrimes(end, start = arguments.length === 2 ? start : 1) {
 };
 
 
+function realPrimeFinder(end, start = arguments.length === 2 ? start : 1) {
+
+  if(arguments.length === 0) {
+    return "Must contain at least one argument.\n If no \'start\' parameter entered: defaults to 1";
+  }
+  else if(typeof end !== 'number' || typeof start !== 'number') {
+    return "expecting numerical input values.";
+  }
+
+
+  let range = Range(start, end);
+  let PrimeArr = [];
+  let i, j, triggered;
+
+  for(i = 0; i < range.length; i++) {
+    j = 2;
+    triggered = false;
+
+    while (j <= (range[i]/2)) {
+      if (range[i] % j == 0) {
+        triggered = true;
+        break;
+      }
+      j++;
+    }
+
+    if(!triggered) {
+      PrimeArr.push(range[i])
+    }
+  }
+
+  return PrimeArr;
+
+}
+
 
 
 
